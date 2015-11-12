@@ -34,6 +34,23 @@ curl -XPOST 'cl-analytics.mwt2.org:9200/_template/caching' -d '{
                    }
                 }
               ]
+        },
+        "collectd" : {
+            "_source" : { "enabled" : true },
+            "properties" : {
+                "host" : { "type" : "string", "index" : "not_analyzed" }
+            },
+            "dynamic_templates": [
+                { "notanalyzed": {
+                      "match":              "*",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":        "string",
+                          "index":       "not_analyzed"
+                      }
+                   }
+                }
+              ]
         }
     }
 }'

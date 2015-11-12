@@ -42,7 +42,7 @@ do
 #   echo $accesses
   increment $(/usr/bin/xrdpfc_print $file | grep version | awk '{print $9,$7}')
 done
-pcached=$(echo "scale=8; 100 * $cached / $total" | bc)
+pcached=$(echo "scale=8; $cached / $total" | bc)
 send_to_graphite percentcached $(echo "scale=8; 100 * $cached / $total" | bc)
 
 export TZ=GMT
