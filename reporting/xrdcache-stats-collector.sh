@@ -48,4 +48,4 @@ send_to_graphite percentcached $(echo "scale=8; 100 * $cached / $total" | bc)
 export TZ=GMT
 currMonth=$(date +%Y-%m)
 ts=$(date +%Y-%m-%dT%H:%M:%S)
-curl -XPOST http://cl-analytics.mwt2.org:9200/caching-$currMonth/fromcache/ -d "{\"timestamp\": \"$ts\", \"hostname\":\"$(hostname)\",\"size\" : $size, \"oldestfile\" : $((date-fileage)),\"percentcached\" : $pcached}"
+curl -XPOST http://cl-analytics.mwt2.org:9200/caching-$currMonth/fromcache/ -d "{\"timestamp\": \"$ts\", \"hostname\":\"$(hostname)\",\"size\" : $(( size * 1024 )), \"oldestfile\" : $((date-fileage)),\"percentcached\" : $pcached}"
