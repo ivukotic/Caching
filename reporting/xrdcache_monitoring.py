@@ -64,15 +64,15 @@ class host:
         d=datetime.datetime.utcnow()
         url="http://cl-analytics.mwt2.org:9200/caching-xrootd-"+str(d.year)+"-"+str(d.month)+"-"+str(d.day)+"/summary/"      
         m = {
-            "type":"FAXredirectors", 
-            "timestamp":str(d), 
+            "type": "FAXredirectors", 
+            "timestamp": d.strftime("%Y-%m-%dT%H:%M:%S"), 
             "redirector": self.ip, 
-            "connections":self.nconn,
-            "ctime":self.ctime, 
-            "timeouts":self.timeouts, 
-            "errors":self.errors, 
-            "redirects":self.redirects, 
-            "delays":self.delays
+            "connections": self.nconn,
+            "ctime": self.ctime, 
+            "timeouts": self.timeouts, 
+            "errors": self.errors, 
+            "redirects": self.redirects, 
+            "delays": self.delays
         }
         print m
         try:
