@@ -34,6 +34,8 @@ class host:
         self.ip=ip
         self.tos=0
         self.nconn=0
+        self.ingress=0
+        self.egress=0
         self.ctime=0
         self.timeouts=0
         self.errors=0
@@ -57,7 +59,7 @@ class host:
         with open(fn, 'w') as fo:
             pickle.dump(self, fo)
     def prnt(self):
-        print '\tip:',self.ip, 'tos:',self.tos
+        print '\tip:',self.ip, '\tos:',self.tos, '\tingress:',self.ingress, '\tegress:',self.egress
         print '\tnconn:',self.nconn,'\t avg. conn time:', self.ctime, '\ttimeouts:',self.timeouts,'\terrors:',self.errors,'\tredirects:',self.redirects,'\tdelays:',self.delays
     def postToES(self):
         headers = {'Content-type':'application/json; charset=UTF-8'}
@@ -68,6 +70,8 @@ class host:
             "timestamp": d.strftime("%Y-%m-%dT%H:%M:%S"), 
             "redirector": self.ip, 
             "connections": self.nconn,
+            "ingress": self.ingress, 
+            "egress": self.egress, 
             "ctime": self.ctime, 
             "timeouts": self.timeouts, 
             "errors": self.errors, 
@@ -172,6 +176,8 @@ for r in redirectors:  # this is file to be asked for
                         host.nconn = int(s.getElementsByTagName('num')[0].childNodes[0].data)
                         host.ctime = int(s.getElementsByTagName('ctime')[0].childNodes[0].data)
                         host.timeouts = int(s.getElementsByTagName('tmo')[0].childNodes[0].data)
+                        host.ingress = int(s.getElementsByTagName('in')[0].childNodes[0].data)
+                        host.egress = int(s.getElementsByTagName('out')[0].childNodes[0].data)
                     elif kind=='proc':
                         pass
                     elif kind=='xrootd':
@@ -201,6 +207,8 @@ for r in redirectors:
             host.errors -= host.old.errors
             host.redirects -= host.old.redirects
             host.delays -= host.old.delays
+            host.ingress -= host.old.ingress
+            host.egress -= host.old.egress
             host.postToES()
         else:
             print 'No previous information available.'
