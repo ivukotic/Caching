@@ -61,10 +61,11 @@ class host:
         print '\tnconn:',self.nconn,'\t avg. conn time:', self.ctime, '\ttimeouts:',self.timeouts,'\terrors:',self.errors,'\tredirects:',self.redirects,'\tdelays:',self.delays
     def postToES(self):
         headers = {'Content-type':'application/json; charset=UTF-8'}
-        url="http://cl-analytics.mwt2.org:9200/caching-xrootd-$currMonth/summary/"      
+        d=datetime.datetime.utcnow()
+        url="http://cl-analytics.mwt2.org:9200/caching-xrootd-"+str(d.year)+"-"+str(d.month)+"-"+str(d.day)+"/summary/"      
         m = {
             "type":"FAXredirectors", 
-            "timestamp":str(datetime.datetime.utcnow()), 
+            "timestamp":str(d), 
             "redirector": self.ip, 
             "connections":self.nconn,
             "ctime":self.ctime, 
