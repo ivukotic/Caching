@@ -125,7 +125,7 @@ def dnsalias_to_nodes(redirector):
 
 workingDir='./' #'/afs/cern.ch/user/i/ivukotic/FAXtools/FAXconfiguration/'
 redirectors=[]
-redirectors.append(redirector("MWT2","uct3-xrdcache.mwt2.org:1094"))
+redirectors.append(redirector("MWT2","ceph36.grid.uchicago.edu"))
 timeouts=3
 sleeps=5
 
