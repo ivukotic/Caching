@@ -11,7 +11,7 @@ size=`du -s /xrootd | awk {'print $1'}`
 send_to_graphite cachesize $size
 
 # 3. age of the oldest file in cache (in seconds)
-fileage=`stat -c %Y $(find /xrootd -type f -printf '%T@ %p\n' | grep user | grep -v cinfo | sort | head -1 | awk '{print $2}')`
+fileage=`stat -c %Y $(find /xrootd -type f -printf '%T@ %p\n' | grep -v cinfo | sort | head -1 | awk '{print $2}')`
 send_to_graphite oldestfile $((date-fileage))
 
 # 4. average percentage of the file cached

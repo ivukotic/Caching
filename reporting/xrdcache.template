@@ -1,8 +1,8 @@
 curl -XPOST 'cl-analytics.mwt2.org:9200/_template/caching' -d '{
     "template" : "caching*",
     "settings" : {
-        "number_of_shards" : 5,
-        "number_of_replicas" : 1
+        "number_of_shards" : 1,
+        "number_of_replicas" : 2
     },
     "mappings" : {
         "_default_": {
